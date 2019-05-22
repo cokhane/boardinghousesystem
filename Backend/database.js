@@ -4,7 +4,7 @@ class Database {
     this._connect()
   }
 _connect() {
-     mongoose.connect(`mongodb://localhost/boardinghouse`)
+     mongoose.connect(`mongodb://localhost/boardinghouse`,{ useNewUrlParser: true })
        .then(() => {
          console.log('Database connection successful')
        })

@@ -3,18 +3,23 @@ const app = express();
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-// const database = require('./database');
+const database = require('./database');
+
 const productRoutes = require('./api/routes/products')
 const orderRoutes = require('./api/routes/orders')
+const roomRoutes = require('./api/routes/rooms')
+const userRoutes = require('./api/routes/users')
 
 // mongoose.connect('localhost:27017')
-mongoose.connect("mongodb+srv://admin:admin@boardinghouse-restapi-eh3sc.mongodb.net/test?retryWrites=true",{ useNewUrlParser: true })
-mongoose.Promise = global.Promise
+
+
+
 // for db connection
 
 console.log('\n')
 console.log('\n')
 app.use(morgan('dev'))
+app.use('/uploads', express.static('uploads'))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
@@ -34,6 +39,8 @@ app.use((req, res, next) => {
 //Routes which should handle request
 app.use('/products',productRoutes)
 app.use('/orders',orderRoutes)
+app.use('/rooms',roomRoutes)
+app.use('/users',userRoutes)
 
 app.use((req,res,next) => {
   const error = new Error('Not Found')
